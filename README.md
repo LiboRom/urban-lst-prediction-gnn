@@ -1,27 +1,114 @@
 # GCN-LST-Prediction-Seville
 
-Implementation and evaluation of Graph Neural Networks for spatio-temporal Land Surface Temperature (LST) prediction in an urban environment. This repository contains the code developed as part of a Master's Thesis focused on urban climate modelling using remote sensing, meteorological data and graph-based deep learning.
+Implementation and evaluation of Graph Neural Networks for spatio-temporal Land Surface Temperature (LST) prediction in an urban environment. This repository contains the code and datasets developed during the Master's Thesis focused on urban climate modelling through remote sensing, meteorological data and graph-based deep learning.
 
 ---
 
-## Project Overview
+# Overview
 
-Urban heat is an increasingly important challenge in modern cities. Accurate prediction of Land Surface Temperature (LST) can help urban planners better understand heat distribution and support mitigation strategies.
+Urban heat islands constitute one of the most important environmental challenges in modern cities. Understanding and predicting Land Surface Temperature (LST) is essential for urban planning, climate adaptation and sustainable development.
 
-This project investigates the use of Graph Convolutional Networks (GCNs) for modelling the spatial and temporal dynamics of LST in a district of Seville (Spain). The proposed approach combines satellite observations, meteorological variables and urban morphology indicators within a graph-based representation of the study area.
+This project investigates the use of Graph Neural Networks (GNNs), particularly Graph Convolutional Networks (GCNs), to model the spatial and temporal evolution of LST in an urban district of Seville (Spain).
 
-The work also evaluates the impact of incorporating synthetic observations generated through Sentinel-3 downscaling and compares graph-based models against several machine learning and deep learning baselines.
+The proposed framework combines:
+
+* Satellite observations from Landsat 8/9.
+* Sentinel-3 observations.
+* Meteorological variables from ERA5-Land.
+* Urban morphology indicators.
+* Graph-based spatial representations.
+
+Additionally, the project evaluates the impact of incorporating synthetic observations generated through Sentinel-3 downscaling and compares graph-based architectures against classical machine learning and recurrent neural network approaches.
 
 ---
 
-## Models Evaluated
+# Repository Structure
+
+```text
+.
+├── notebooks/
+│   ├── TFM_LIBORIO_v2.zip
+│   └── training_automatization.zip
+│
+├── datasets/
+│   ├── datos_landsat.csv
+│   ├── datos_sentinel_downscalled.csv
+│   ├── sevilla_dataset_final.csv
+│   ├── sevilla_dataset_downscaled.csv
+│   └── ...
+│
+├── requirements.txt
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+---
+
+# Repository Contents
+
+## notebooks/
+
+Contains the main notebooks used throughout the thesis.
+
+### TFM_LIBORIO_v2
+
+Main notebook containing:
+
+* Data acquisition
+* Data preprocessing
+* Sentinel-3 downscaling
+* Graph construction
+* Model implementation
+* Training and evaluation
+
+### training_automatization
+
+Notebook used for:
+
+* Automated experimentation
+* Multi-seed evaluation
+* Hyperparameter studies
+* Ablation studies
+* Comparative analysis between models
+
+---
+
+## datasets/
+
+Contains the most relevant datasets generated during the project.
+
+Depending on repository size limitations, only the final processed datasets may be included.
+
+Examples:
+
+* Original Landsat observations
+* Downscaled Sentinel-3 observations
+* Final merged datasets
+* Experimental datasets used during training
+
+These files allow most experiments to be reproduced without repeating the complete data acquisition pipeline.
+
+---
+
+# Models Evaluated
 
 The following models were implemented and compared:
 
+### Machine Learning
+
 * XGBoost
+
+### Recurrent Neural Networks
+
 * LSTM
+* Stacked LSTM
 * GRU
-* Graph Convolutional Network (GCN)
+* Stacked GRU
+
+### Graph Neural Networks
+
+* GCN
 * GCN + GRU
 * GraphSAGE
 
@@ -34,26 +121,40 @@ Performance was evaluated using:
 
 ---
 
-## Data Sources
+# Data Sources
 
-The project combines information from multiple sources:
+The project integrates information from several sources.
 
-### Satellite data
+## Landsat 8/9
 
-* Landsat 8/9
+Used for:
 
-  * Land Surface Temperature (LST)
-  * NDVI
-  * Albedo
+* Land Surface Temperature (LST)
+* NDVI
+* Albedo
 
-* Sentinel-3 SLSTR
+Source:
 
-  * LST observations
-  * Downscaling experiments
+https://developers.google.com/earth-engine/datasets
 
-### Meteorological data
+---
 
-ERA5-Land:
+## Sentinel-3 SLSTR
+
+Used for:
+
+* Additional LST observations
+* Downscaling experiments
+
+Source:
+
+https://dataspace.copernicus.eu/
+
+---
+
+## ERA5-Land
+
+Used for:
 
 * Air temperature
 * Relative humidity
@@ -61,97 +162,86 @@ ERA5-Land:
 * Wind speed
 * Precipitation
 
-### Urban morphology
+Source:
 
-* Digital Elevation Model (DEM)
-* Building indicators
-* Aspect ratio
-* Urban morphology descriptors
-
-obtained from:
-
-* CNIG / IGN
-* OpenStreetMap
+https://cds.climate.copernicus.eu/
 
 ---
 
-## Repository Contents
+## CNIG / IGN
 
-```text
-.
-├── notebooks/
-│   ├── TFM_LIBORIO_v2.zip
-│   └── training_automatization.zip
-│
-├── requirements.txt
-├── README.md
-├── LICENSE
-└── .gitignore
-```
+Used for:
 
-### Main notebooks
+* Digital Elevation Models
+* Urban morphology variables
 
-#### TFM_LIBORIO_v2
+Source:
 
-Contains:
-
-* Data acquisition
-* Data preprocessing
-* Sentinel-3 downscaling
-* Graph construction
-* Model implementation
-* Training and evaluation
-
-#### training_automatization
-
-Contains:
-
-* Automated experimentation
-* Multi-seed evaluation
-* Hyperparameter studies
-* Ablation studies
-* Comparative analysis
+https://centrodedescargas.cnig.es/
 
 ---
+
+## OpenStreetMap
+
+Used for:
+
+* Building-related indicators
+* Urban geometry descriptors
+
+Source:
+
+https://www.openstreetmap.org/
+
+---
+
+# Running the Project
 
 ## Important Note
 
-The notebooks were developed and executed in Google Colab.
+The project was developed and executed entirely in Google Colab.
 
-Due to GitHub rendering limitations with large Colab notebooks containing extensive outputs and visualizations, the notebooks are distributed as compressed files and should be opened directly in Google Colab.
+Due to GitHub rendering limitations with large notebooks containing extensive outputs, figures and interactive components, the notebooks are distributed as compressed files and should be opened directly in Google Colab.
+
+The local execution workflow has not been the primary target environment.
 
 ---
 
-## Running the Project
+## Step 1: Download the repository
 
-### 1. Download the notebooks
+Clone the repository:
 
-Download and extract the contents of the `notebooks` directory.
+```bash
+git clone https://github.com/your_username/gcn-lst-prediction-seville.git
 
-### 2. Open in Google Colab
+cd gcn-lst-prediction-seville
+```
 
-Upload the notebook to Google Colab:
+---
+
+## Step 2: Open the notebooks in Google Colab
+
+Upload the notebooks to:
 
 https://colab.research.google.com/
 
-### 3. Mount Google Drive
+or import them directly from GitHub.
 
-The project assumes access to Google Drive:
+---
+
+## Step 3: Mount Google Drive
+
+Most notebook paths assume access to Google Drive.
 
 ```python
 from google.colab import drive
 drive.mount('/content/drive')
 ```
 
-### 4. Install dependencies
+---
 
-Install any missing packages using:
+## Step 4: Install dependencies
 
-```python
-!pip install -r requirements.txt
-```
-
-or manually:
+Install the required libraries:
 
 ```python
 !pip install torch
@@ -161,27 +251,33 @@ or manually:
 !pip install optuna
 !pip install earthengine-api
 !pip install geemap
+!pip install rasterio
+!pip install rasterstats
 ```
 
 ---
 
-## Google Earth Engine Setup
+# Google Earth Engine Configuration
 
-Several parts of the workflow require access to Google Earth Engine.
+Several sections of the project rely on Google Earth Engine (GEE).
 
-### Create a Google Account
+## Create a Google Account
 
 A Google account is required.
 
-### Register for Earth Engine
+---
+
+## Register for Earth Engine
 
 Request access at:
 
 https://earthengine.google.com/
 
-### Create a Google Cloud Project
+---
 
-Create a project in:
+## Create a Google Cloud Project
+
+Create a project at:
 
 https://console.cloud.google.com/
 
@@ -191,9 +287,11 @@ Example:
 gcn-lst-seville
 ```
 
-### Enable Earth Engine API
+---
 
-Inside the Google Cloud Console:
+## Enable Earth Engine API
+
+Within Google Cloud:
 
 ```text
 APIs & Services
@@ -201,9 +299,11 @@ APIs & Services
 → Earth Engine API
 ```
 
-### Authenticate
+---
 
-In Colab:
+## Authenticate Earth Engine
+
+Inside Colab:
 
 ```python
 import ee
@@ -214,19 +314,19 @@ ee.Initialize(project="your-project-id")
 
 ---
 
-## Copernicus Data Space
+# Copernicus Data Space Configuration
 
-Some Sentinel-3 data retrieval procedures require an account in the Copernicus Data Space Ecosystem.
+Some Sentinel-3 workflows require access to the Copernicus Data Space Ecosystem.
 
 Registration:
 
 https://dataspace.copernicus.eu/
 
-Depending on future API changes, authentication tokens may need to be configured manually.
+Depending on API updates, authentication tokens may need to be configured manually.
 
 ---
 
-## Reproducibility
+# Reproducibility Notes
 
 The complete workflow depends on external services whose availability may change over time:
 
@@ -236,19 +336,21 @@ The complete workflow depends on external services whose availability may change
 * CNIG services
 * OpenStreetMap
 
-For this reason, some datasets are not included in the repository and may need to be regenerated following the procedures described in the notebooks.
+Some data acquisition procedures may therefore require adaptation if APIs or authentication mechanisms change in the future.
+
+For this reason, the repository includes processed datasets whenever possible to facilitate reproducibility.
 
 ---
 
-## Study Area
+# Study Area
 
 The experiments were conducted over an urban district located in Seville (Spain).
 
-The area is represented as a regular spatial grid where each grid cell corresponds to a graph node. Spatial relationships between neighbouring cells are encoded as graph edges, allowing Graph Neural Networks to exploit local spatial dependencies.
+The study area is discretized into a regular spatial grid where each grid cell corresponds to a graph node. Spatial relationships between neighbouring nodes are represented through graph edges, enabling Graph Neural Networks to exploit local spatial dependencies.
 
 ---
 
-## Author
+# Author
 
 **Liborio Román Montes**
 
@@ -260,6 +362,6 @@ University of Seville
 
 ---
 
-## License
+# License
 
-This project is released under the MIT License.
+This project is distributed under the MIT License.
