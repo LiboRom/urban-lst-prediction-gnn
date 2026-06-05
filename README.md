@@ -167,7 +167,7 @@ https://console.cloud.google.com/
 Example:
 
 ```text
-gcn-lst-seville
+gnn-tfm
 ```
 
 ### Enable Earth Engine API
