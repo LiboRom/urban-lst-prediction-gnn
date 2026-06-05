@@ -142,27 +142,6 @@ The project assumes access to Google Drive:
 from google.colab import drive
 drive.mount('/content/drive')
 ```
-
-### 4. Install dependencies
-
-Install any missing packages using:
-
-```python
-!pip install -r requirements.txt
-```
-
-or manually:
-
-```python
-!pip install torch
-!pip install torch-geometric
-!pip install tensorflow
-!pip install xgboost
-!pip install optuna
-!pip install earthengine-api
-!pip install geemap
-```
-
 ---
 
 ## Google Earth Engine Setup
@@ -213,7 +192,6 @@ ee.Initialize(project="your-project-id")
 ```
 
 ---
-
 ## Copernicus Data Space
 
 Some Sentinel-3 data retrieval procedures require an account in the Copernicus Data Space Ecosystem.
@@ -222,8 +200,37 @@ Registration:
 
 https://dataspace.copernicus.eu/
 
-Depending on future API changes, authentication tokens may need to be configured manually.
+### Sentinel Hub Authentication
 
+The workflows described in Sections **1.3.3** and **1.3.4** require authentication through Sentinel Hub services.
+
+Before running these sections, users must create OAuth credentials and obtain:
+
+* `client_id`
+* `client_secret`
+
+To generate them:
+
+1. Create a Copernicus Data Space Ecosystem account.
+2. Log in to the dashboard.
+3. Navigate to **User Settings → OAuth Clients**.
+4. Create a new OAuth client.
+5. Save the generated `client_id` and `client_secret`.
+
+Example:
+
+```python
+CLIENT_ID = "your-client-id"
+CLIENT_SECRET = "your-client-secret"
+```
+
+⚠️ Do not share these credentials publicly or upload them to GitHub repositories.
+
+### Additional Access Requirements
+
+The download procedures implemented in Sections **1.4** and **1.5** also require a valid Copernicus Data Space Ecosystem account.
+
+Some services automatically generate temporary access tokens from the OAuth credentials. Therefore, a properly configured Copernicus account is required before executing the complete Sentinel-3 data acquisition workflow.
 ---
 
 ## Reproducibility
